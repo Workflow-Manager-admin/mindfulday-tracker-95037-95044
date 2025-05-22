@@ -25,7 +25,7 @@ const Home = () => (
 
 // Tasks page component using TaskTracker
 const TasksPage = () => (
-  <div className="container">
+  <div className="container page-transition">
     <h1>Task Tracker</h1>
     <p className="description">
       Manage your daily tasks and track your progress throughout the day.
@@ -36,7 +36,7 @@ const TasksPage = () => (
 
 // Journal page component using Reflection component
 const JournalPage = () => (
-  <div className="container">
+  <div className="container page-transition">
     <h1>Daily Journal</h1>
     <p className="description">
       Record your mood and reflections to build mindfulness habits.
