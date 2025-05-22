@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import './components/components.css';
-import { AppProvider } from './context/AppContext';
+import { AppProvider, useAppContext } from './context/AppContext';
 
 // Import components
 import { Layout, Dashboard, TaskTracker, Reflection } from './components';
@@ -35,15 +35,34 @@ const TasksPage = () => (
 );
 
 // Journal page component using Reflection component
-const JournalPage = () => (
-  <div className="container page-transition">
-    <h1>Daily Journal</h1>
-    <p className="description">
-      Record your mood and reflections to build mindfulness habits.
-    </p>
-    <Reflection />
-  </div>
-);
+const JournalPage = () => {
+  const { reflections } = useAppContext();
+  
+  // Get today's date in YYYY-MM-DD format
+  const today = new Date().toISOString().split('T')[0];
+  
+  // Check if the user has done a reflection today
+  const hasReflectionToday = reflections.some(r => r.date === today && r.type === 'daily-reflection');
+  const hasMoodToday = reflections.some(r => r.date === today && r.type === 'mood');
+  
+  return (
+    <div className="container page-transition">
+      <h1>Daily Journal</h1>
+      <p className="description">
+        Record your mood and reflections to build mindfulness habits.
+      </p>
+      
+      {!hasReflectionToday && !hasMoodToday && (
+        <div className="journal-prompt-banner">
+          <h3>Start Your Reflection Journey Today</h3>
+          <p>Taking a few minutes each day to reflect can improve your well-being and mindfulness.</p>
+        </div>
+      )}
+      
+      <Reflection />
+    </div>
+  );
+};
 
 // Profile placeholder page
 const ProfilePage = () => (
