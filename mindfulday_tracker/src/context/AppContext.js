@@ -50,6 +50,7 @@ export const AppProvider = ({ children }) => {
     const newTask = {
       id: uuidv4(),
       ...task,
+      priority: task.priority || PRIORITY.NONE,
       createdAt: new Date().toISOString(),
       completed: false
     };
