@@ -33,6 +33,12 @@ body {
   width: 100%;
   box-sizing: border-box;
   z-index: 100;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-transparent {
+  background-color: transparent;
+  border-bottom: none;
 }
 
 .logo {
