@@ -64,7 +64,7 @@ function App() {
       <Router>
         <div className="app">
           <Routes>
-            <Route path="/" element={<Layout><Home /></Layout>} />
+            <Route path="/" element={<Layout transparentHeader={true}><Home /></Layout>} />
             <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
             <Route path="/tasks" element={<Layout><TasksPage /></Layout>} />
             <Route path="/journal" element={<Layout><JournalPage /></Layout>} />
