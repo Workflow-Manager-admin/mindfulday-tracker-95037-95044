@@ -10,6 +10,14 @@ const TASKS_KEY = 'mindfulday_tasks';
 const REFLECTIONS_KEY = 'mindfulday_reflections';
 const USER_SETTINGS_KEY = 'mindfulday_settings';
 
+// Task priority levels
+export const PRIORITY = {
+  HIGH: 'high',
+  MEDIUM: 'medium',
+  LOW: 'low',
+  NONE: 'none'
+};
+
 // PUBLIC_INTERFACE
 /**
  * Provider component for the app's global state
