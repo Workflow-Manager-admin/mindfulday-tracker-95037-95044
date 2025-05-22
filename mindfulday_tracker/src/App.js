@@ -1,9 +1,13 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
+import './components/components.css';
 import { AppProvider } from './context/AppContext';
 
-// Placeholder components - these will be replaced with actual components later
+// Import components
+import { Layout, Dashboard, TaskList, MoodTracker, ReflectionForm } from './components';
+
+// Home page component
 const Home = () => (
   <div className="container">
     <div className="hero">
@@ -12,7 +16,51 @@ const Home = () => (
       <div className="description">
         Track your daily tasks, mood, and reflections with focus on mindfulness and self-awareness.
       </div>
-      <button className="btn btn-large">Start Your Day</button>
+      <Link to="/dashboard">
+        <button className="btn btn-large">Start Your Day</button>
+      </Link>
+    </div>
+  </div>
+);
+
+// Tasks page component wrapping TaskList
+const TasksPage = () => (
+  <div className="container">
+    <h1>Task Tracker</h1>
+    <p className="description">
+      Manage your daily tasks and track your progress throughout the day.
+    </p>
+    <TaskList />
+  </div>
+);
+
+// Journal page component combining MoodTracker and ReflectionForm
+const JournalPage = () => (
+  <div className="container">
+    <h1>Daily Journal</h1>
+    <p className="description">
+      Record your mood and reflections to build mindfulness habits.
+    </p>
+    <div className="journal-sections">
+      <section className="journal-section">
+        <MoodTracker />
+      </section>
+      <section className="journal-section">
+        <ReflectionForm />
+      </section>
+    </div>
+  </div>
+);
+
+// Profile placeholder page
+const ProfilePage = () => (
+  <div className="container">
+    <h1>Profile & Settings</h1>
+    <p className="description">
+      Manage your personal settings and preferences.
+    </p>
+    <div className="settings-container">
+      <p>This feature is coming soon!</p>
     </div>
   </div>
 );
@@ -22,23 +70,13 @@ function App() {
     <AppProvider>
       <Router>
         <div className="app">
-          <nav className="navbar">
-            <div className="container">
-              <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                <div className="logo">
-                  <span className="logo-symbol">*</span> MindfulDay
-                </div>
-                <button className="btn">My Journal</button>
-              </div>
-            </div>
-          </nav>
-
-          <main>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              {/* Additional routes will be added here as components are developed */}
-            </Routes>
-          </main>
+          <Routes>
+            <Route path="/" element={<Layout><Home /></Layout>} />
+            <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
+            <Route path="/tasks" element={<Layout><TasksPage /></Layout>} />
+            <Route path="/journal" element={<Layout><JournalPage /></Layout>} />
+            <Route path="/profile" element={<Layout><ProfilePage /></Layout>} />
+          </Routes>
         </div>
       </Router>
     </AppProvider>
