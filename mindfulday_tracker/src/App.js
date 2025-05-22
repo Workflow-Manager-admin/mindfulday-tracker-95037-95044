@@ -9,7 +9,7 @@ import { Layout, Dashboard, TaskTracker, Reflection } from './components';
 
 // Home page component
 const Home = () => (
-  <div className="container">
+  <div className="container page-transition">
     <div className="hero">
       <div className="subtitle">Daily Mindfulness and Planning</div>
       <h1 className="title">MindfulDay Tracker</h1>
