@@ -47,7 +47,7 @@ const JournalPage = () => (
 
 // Profile placeholder page
 const ProfilePage = () => (
-  <div className="container">
+  <div className="container page-transition">
     <h1>Profile & Settings</h1>
     <p className="description">
       Manage your personal settings and preferences.
