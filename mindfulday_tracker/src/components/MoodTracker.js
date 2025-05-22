@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useAppContext } from '../context/AppContext';
-import { formatDate } from '../utils/dateUtils';
+import { formatDate, getRelativeDay } from '../utils/dateUtils';
 import PropTypes from 'prop-types';
 
 // Mood options with emoji representations
@@ -12,6 +12,9 @@ const moodOptions = [
   { value: 'stressed', label: '😫', description: 'Stressed' },
 ];
 
+// Helper to get mood option by value
+const getMoodOption = (value) => moodOptions.find(m => m.value === value) || null;
+
 // PUBLIC_INTERFACE
 /**
  * Component for tracking and recording daily mood
@@ -19,7 +22,7 @@ const moodOptions = [
  * @param {boolean} props.compact - Whether to display in compact mode for dashboard
  */
 const MoodTracker = ({ compact = false }) => {
-  const { reflections, addReflection } = useAppContext();
+  const { reflections, addReflection, updateReflection } = useAppContext();
   
   const today = new Date().toISOString().split('T')[0];
   
@@ -28,16 +31,55 @@ const MoodTracker = ({ compact = false }) => {
     r.date === today && r.type === 'mood'
   );
   
-  const handleMoodSelect = (mood) => {
+  // Get mood history for past 7 days (including today)
+  const moodHistory = useMemo(() => {
+    const dates = [];
+    const currentDate = new Date();
     
-    // If there's already a mood reflection for today, we'll add a new one
-    // In a real app, this might update the existing reflection instead
-    addReflection({
-      type: 'mood',
-      mood: mood,
-      date: today,
-      notes: ''
+    // Generate array of dates for the past 7 days
+    for (let i = 6; i >= 0; i--) {
+      const date = new Date();
+      date.setDate(currentDate.getDate() - i);
+      const dateString = date.toISOString().split('T')[0];
+      dates.push({
+        date: dateString,
+        formattedDate: getRelativeDay(date),
+        isoDate: date.toISOString(),
+      });
+    }
+    
+    // Map dates to mood reflections
+    return dates.map(dateInfo => {
+      const moodForDate = reflections.find(r => 
+        r.date === dateInfo.date && r.type === 'mood'
+      );
+      
+      return {
+        ...dateInfo,
+        mood: moodForDate?.mood || null,
+        moodInfo: moodForDate?.mood ? getMoodOption(moodForDate.mood) : null,
+        reflectionId: moodForDate?.id || null,
+      };
     });
+  }, [reflections]);
+  
+  // Handle mood selection
+  const handleMoodSelect = (mood) => {
+    if (todaysMoodReflection) {
+      // Update existing mood reflection for today
+      updateReflection(todaysMoodReflection.id, {
+        mood: mood,
+        updatedAt: new Date().toISOString()
+      });
+    } else {
+      // Create new mood reflection
+      addReflection({
+        type: 'mood',
+        mood: mood,
+        date: today,
+        notes: ''
+      });
+    }
   };
   
   return (
@@ -61,7 +103,30 @@ const MoodTracker = ({ compact = false }) => {
       
       {todaysMoodReflection?.mood && !compact && (
         <div className="mood-selected">
-          <p>Today's mood: {moodOptions.find(m => m.value === todaysMoodReflection.mood)?.description}</p>
+          <p>Today's mood: {getMoodOption(todaysMoodReflection.mood)?.description}</p>
+        </div>
+      )}
+
+      {/* Show mood history when not in compact mode */}
+      {!compact && (
+        <div className="mood-history">
+          <h3>Your Mood History</h3>
+          <div className="mood-timeline">
+            {moodHistory.map((day) => (
+              <div key={day.date} className="mood-day">
+                <div className="mood-day-date">{day.formattedDate}</div>
+                <div className="mood-day-emoji">
+                  {day.moodInfo ? (
+                    <span title={`${day.moodInfo.description}`}>
+                      {day.moodInfo.label}
+                    </span>
+                  ) : (
+                    <span className="mood-day-empty">–</span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>
