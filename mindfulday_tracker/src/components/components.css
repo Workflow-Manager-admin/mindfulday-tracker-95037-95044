@@ -1,0 +1,425 @@
+/* Card Component */
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.card-padded {
+  padding: 20px;
+}
+
+.card-header {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.card-content {
+  line-height: 1.5;
+}
+
+.card-footer {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Button variations */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary {
+  background-color: var(--kavia-orange);
+  color: white;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 1px solid var(--kavia-orange);
+  color: var(--kavia-orange);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+.btn-text {
+  background-color: transparent;
+  color: var(--kavia-orange);
+  padding: 5px 10px;
+}
+
+.btn-small {
+  padding: 6px 12px;
+  font-size: 0.9rem;
+}
+
+.btn-full-width {
+  width: 100%;
+  display: block;
+}
+
+/* Layout and structure */
+.main-content {
+  padding-top: 80px; /* Adjust to accommodate fixed navbar */
+  padding-bottom: 30px;
+  min-height: calc(100vh - 120px); /* Adjust to ensure footer is at bottom */
+}
+
+.footer {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 16px 0;
+  text-align: center;
+  margin-top: auto;
+}
+
+/* Navigation */
+.main-nav {
+  display: flex;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 20px;
+}
+
+.nav-links li {
+  display: inline-block;
+}
+
+.nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  padding: 8px 0;
+}
+
+.nav-links a:hover {
+  color: var(--text-color);
+}
+
+.nav-links li.active a {
+  color: var(--kavia-orange);
+  position: relative;
+}
+
+.nav-links li.active a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--kavia-orange);
+  border-radius: 2px;
+}
+
+/* Dashboard styles */
+.dashboard-container {
+  padding: 20px 0;
+}
+
+.dashboard-header {
+  margin-bottom: 24px;
+}
+
+.date-display {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-top: 0;
+}
+
+.dashboard-summary {
+  margin-bottom: 32px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.progress-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.progress-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.progress-label {
+  width: 100px;
+  font-weight: 500;
+}
+
+.progress-bar-container {
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: var(--kavia-orange);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  width: 100px;
+  text-align: right;
+}
+
+.progress-indicator {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.indicator-complete {
+  color: var(--kavia-orange);
+}
+
+.indicator-incomplete {
+  color: var(--text-secondary);
+}
+
+.view-all-link {
+  color: var(--kavia-orange);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Task List styles */
+.task-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.add-task-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.task-input {
+  flex: 1;
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--text-color);
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-color);
+}
+
+.task-item.task-completed .task-title {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+}
+
+.task-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.task-checkbox {
+  width: 18px;
+  height: 18px;
+}
+
+.task-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.task-description {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 4px 0 0 0;
+}
+
+.task-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-delete {
+  background-color: transparent;
+  border: none;
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+.btn-delete:hover {
+  opacity: 1;
+  color: #ff4d4d;
+}
+
+/* Mood Tracker Styles */
+.mood-tracker {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.mood-date {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.mood-options {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.mood-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  flex: 1;
+  transition: all 0.2s ease;
+}
+
+.mood-option:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.mood-option.selected {
+  background-color: rgba(232, 122, 65, 0.2);
+  border-color: var(--kavia-orange);
+}
+
+.mood-emoji {
+  font-size: 1.8rem;
+}
+
+.mood-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.mood-selected {
+  margin-top: 16px;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+/* Reflection Form Styles */
+.reflection-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.reflection-date {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.reflection-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 500;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--text-color);
+}
+
+/* Compact mode for dashboard widgets */
+.compact .task-item {
+  padding: 8px 12px;
+}
+
+.compact .mood-options {
+  gap: 6px;
+}
+
+.compact .mood-option {
+  padding: 8px;
+}
+
+.compact .mood-emoji {
+  font-size: 1.5rem;
+}
