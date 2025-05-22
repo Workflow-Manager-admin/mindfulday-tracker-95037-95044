@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
-import { formatDate, getRelativeDay } from '../utils/dateUtils';
+import { formatDate } from '../utils/dateUtils';
 import Card from './shared/Card';
 import TaskList from './TaskList';
 import MoodTracker from './MoodTracker';
