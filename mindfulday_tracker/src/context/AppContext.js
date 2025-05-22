@@ -166,6 +166,49 @@ export const AppProvider = ({ children }) => {
     return result;
   };
   
+  // Get reflections filtered by various criteria
+  const getFilteredReflections = (filters = {}) => {
+    return reflections.filter(reflection => {
+      // Filter by date if specified
+      if (filters.date && reflection.date !== filters.date) {
+        return false;
+      }
+      
+      // Filter by type if specified
+      if (filters.type && reflection.type !== filters.type) {
+        return false;
+      }
+      
+      // Filter by date range if specified
+      if (filters.startDate && filters.endDate) {
+        if (reflection.date < filters.startDate || reflection.date > filters.endDate) {
+          return false;
+        }
+      }
+      
+      // Filter by search term if specified
+      if (filters.searchTerm) {
+        const searchTerm = filters.searchTerm.toLowerCase();
+        const searchFields = ['gratitude', 'lessons', 'intentions', 'notes'];
+        
+        // Search through all text fields
+        const matchesSearch = searchFields.some(field => 
+          reflection[field] && 
+          reflection[field].toLowerCase().includes(searchTerm)
+        );
+        
+        if (!matchesSearch) return false;
+      }
+      
+      return true;
+    });
+  };
+  
+  // Get a specific reflection by ID
+  const getReflectionById = (id) => {
+    return reflections.find(r => r.id === id) || null;
+  };
+  
   // Add or update mood for today
   const setMoodForToday = (mood) => {
     const today = new Date().toISOString().split('T')[0];
@@ -213,6 +256,8 @@ export const AppProvider = ({ children }) => {
     getMoodForDate,
     getMoodHistory,
     setMoodForToday,
+    getFilteredReflections,
+    getReflectionById,
     
     // Settings data and methods
     userSettings,
