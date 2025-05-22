@@ -131,12 +131,29 @@ const ReflectionForm = ({ selectedPrompt, promptCategory }) => {
           />
         </div>
         
-        <button type="submit" className="btn btn-large">
+        <div className="form-group">
+          <label htmlFor="notes">Additional notes or thoughts</label>
+          <textarea
+            id="notes"
+            name="notes"
+            value={formData.notes}
+            onChange={handleChange}
+            rows={3}
+            placeholder="Any other thoughts, feelings, or observations..."
+          />
+        </div>
+        
+        <Button type="submit" size="large">
           {todaysReflection ? 'Update Reflection' : 'Save Reflection'}
-        </button>
+        </Button>
       </form>
     </div>
   );
+};
+
+ReflectionForm.propTypes = {
+  selectedPrompt: PropTypes.string,
+  promptCategory: PropTypes.string
 };
 
 export default ReflectionForm;
