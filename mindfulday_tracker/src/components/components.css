@@ -368,6 +368,79 @@
   color: var(--text-color);
 }
 
+/* Mood History Styles */
+.mood-history {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+.mood-history h3 {
+  margin-bottom: 16px;
+  font-size: 1.2rem;
+}
+
+.mood-timeline {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 0;
+}
+
+.mood-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.mood-day-date {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  text-align: center;
+}
+
+.mood-day-emoji {
+  font-size: 1.6rem;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.03);
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+.mood-day-emoji:hover {
+  transform: scale(1.1);
+}
+
+.mood-day-empty {
+  color: var(--text-secondary);
+  opacity: 0.5;
+  font-size: 1.2rem;
+}
+
+/* Responsive adjustments for mood timeline */
+@media (max-width: 600px) {
+  .mood-timeline {
+    overflow-x: auto;
+    padding-bottom: 10px;
+  }
+  
+  .mood-day {
+    min-width: 60px;
+  }
+}
+
 /* Reflection Form Styles */
 .reflection-container {
   max-width: 800px;
