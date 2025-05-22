@@ -17,6 +17,9 @@ export { default as TaskTracker } from './TaskTracker';
 export { default as MoodTracker } from './MoodTracker';
 export { default as ReflectionForm } from './ReflectionForm';
 export { default as Reflection } from './Reflection';
+export { default as ReflectionHistory } from './ReflectionHistory';
+export { default as ReflectionDetail } from './ReflectionDetail';
+export { default as ReflectionPrompts } from './ReflectionPrompts';
 
 // Shared UI components
 export { default as Button } from './shared/Button';

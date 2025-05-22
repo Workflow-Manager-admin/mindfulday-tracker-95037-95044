@@ -114,3 +114,4 @@ src/components/ReflectionHistory.js
   Line 20:9:   'dailyReflections' is assigned a value but never used  no-unused-vars
 
 webpack compiled with 1 warning
+Compiling...
