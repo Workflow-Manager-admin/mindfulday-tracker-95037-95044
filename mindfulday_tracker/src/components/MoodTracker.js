@@ -20,7 +20,6 @@ const moodOptions = [
  */
 const MoodTracker = ({ compact = false }) => {
   const { reflections, addReflection } = useAppContext();
-  const [selectedMood, setSelectedMood] = useState(null);
   
   const today = new Date().toISOString().split('T')[0];
   
@@ -30,7 +29,6 @@ const MoodTracker = ({ compact = false }) => {
   );
   
   const handleMoodSelect = (mood) => {
-    setSelectedMood(mood);
     
     // If there's already a mood reflection for today, we'll add a new one
     // In a real app, this might update the existing reflection instead
