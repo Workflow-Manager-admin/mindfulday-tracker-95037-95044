@@ -5,7 +5,7 @@ import './components/components.css';
 import { AppProvider } from './context/AppContext';
 
 // Import components
-import { Layout, Dashboard, TaskList, MoodTracker, ReflectionForm } from './components';
+import { Layout, Dashboard, TaskTracker, Reflection } from './components';
 
 // Home page component
 const Home = () => (
@@ -23,32 +23,25 @@ const Home = () => (
   </div>
 );
 
-// Tasks page component wrapping TaskList
+// Tasks page component using TaskTracker
 const TasksPage = () => (
   <div className="container">
     <h1>Task Tracker</h1>
     <p className="description">
       Manage your daily tasks and track your progress throughout the day.
     </p>
-    <TaskList />
+    <TaskTracker />
   </div>
 );
 
-// Journal page component combining MoodTracker and ReflectionForm
+// Journal page component using Reflection component
 const JournalPage = () => (
   <div className="container">
     <h1>Daily Journal</h1>
     <p className="description">
       Record your mood and reflections to build mindfulness habits.
     </p>
-    <div className="journal-sections">
-      <section className="journal-section">
-        <MoodTracker />
-      </section>
-      <section className="journal-section">
-        <ReflectionForm />
-      </section>
-    </div>
+    <Reflection />
   </div>
 );
 

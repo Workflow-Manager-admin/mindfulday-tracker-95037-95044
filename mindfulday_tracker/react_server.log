@@ -138,3 +138,29 @@ webpack compiled successfully
 Compiling...
 Compiled successfully!
 webpack compiled successfully
+Compiling...
+Failed to compile.
+
+[eslint] 
+src/App.js
+  Line 33:6:  'TaskTracker' is not defined  react/jsx-no-undef
+  Line 44:6:  'Reflection' is not defined   react/jsx-no-undef
+
+Search for the keywords to learn more about each error.
+WARNING in [eslint] 
+src/App.js
+  Line 8:29:  'TaskList' is defined but never used        no-unused-vars
+  Line 8:39:  'MoodTracker' is defined but never used     no-unused-vars
+  Line 8:52:  'ReflectionForm' is defined but never used  no-unused-vars
+
+ERROR in [eslint] 
+src/App.js
+  Line 33:6:  'TaskTracker' is not defined  react/jsx-no-undef
+  Line 44:6:  'Reflection' is not defined   react/jsx-no-undef
+
+Search for the keywords to learn more about each error.
+
+webpack compiled with 1 error and 1 warning
+Compiling...
+Compiled successfully!
+webpack compiled successfully
