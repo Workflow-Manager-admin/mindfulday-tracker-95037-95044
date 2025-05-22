@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useAppContext } from '../context/AppContext';
 import { formatDate } from '../utils/dateUtils';
 import PropTypes from 'prop-types';
