@@ -58,7 +58,13 @@ const Dashboard = () => {
               <span className="progress-label">Mood</span>
               <div className="progress-indicator">
                 {hasMoodToday ? (
-                  <span className="indicator-complete">✓</span>
+                  <span className="indicator-complete mood-indicator-emoji" title="Mood recorded">
+                    {todaysMood.mood === 'great' && '😁'}
+                    {todaysMood.mood === 'good' && '🙂'}
+                    {todaysMood.mood === 'okay' && '😐'}
+                    {todaysMood.mood === 'down' && '🙁'}
+                    {todaysMood.mood === 'stressed' && '😫'}
+                  </span>
                 ) : (
                   <span className="indicator-incomplete">○</span>
                 )}

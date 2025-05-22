@@ -215,6 +215,10 @@
   color: var(--text-secondary);
 }
 
+.mood-indicator-emoji {
+  font-size: 1.2rem;
+}
+
 .view-all-link {
   color: var(--kavia-orange);
   text-decoration: none;
