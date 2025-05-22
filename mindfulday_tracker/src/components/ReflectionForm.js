@@ -1,18 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { useAppContext } from '../context/AppContext';
 import { formatDate } from '../utils/dateUtils';
+import Button from './shared/Button';
 
 // PUBLIC_INTERFACE
 /**
  * Component for recording daily reflections and insights
+ * @param {Object} props - Component props
+ * @param {string} props.selectedPrompt - An optional prompt to prefill
+ * @param {string} props.promptCategory - The category of the selected prompt
  */
-const ReflectionForm = () => {
+const ReflectionForm = ({ selectedPrompt, promptCategory }) => {
   const { reflections, addReflection, updateReflection } = useAppContext();
   
   const [formData, setFormData] = useState({
     gratitude: '',
     lessons: '',
-    intentions: ''
+    intentions: '',
+    notes: ''
   });
   
   const today = new Date().toISOString().split('T')[0];
@@ -26,10 +32,35 @@ const ReflectionForm = () => {
       setFormData({
         gratitude: todaysReflection.gratitude || '',
         lessons: todaysReflection.lessons || '',
-        intentions: todaysReflection.intentions || ''
+        intentions: todaysReflection.intentions || '',
+        notes: todaysReflection.notes || ''
       });
     }
   }, [todaysReflection]);
+  
+  // Handle prompt selection
+  const applyPrompt = useCallback((prompt, category) => {
+    if (!prompt) return;
+    
+    // Determine which field to update based on the category
+    let fieldToUpdate = 'notes'; // default
+    
+    if (category === 'gratitude') fieldToUpdate = 'gratitude';
+    else if (category === 'growth') fieldToUpdate = 'lessons';
+    else if (category === 'intention') fieldToUpdate = 'intentions';
+    
+    setFormData(prev => ({
+      ...prev,
+      [fieldToUpdate]: prompt
+    }));
+  }, []);
+  
+  // Apply selected prompt if provided
+  useEffect(() => {
+    if (selectedPrompt) {
+      applyPrompt(selectedPrompt, promptCategory);
+    }
+  }, [selectedPrompt, promptCategory, applyPrompt]);
   
   const handleChange = (e) => {
     const { name, value } = e.target;
