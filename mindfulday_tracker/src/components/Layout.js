@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import Header from './Header';
 
 // PUBLIC_INTERFACE
 /**
@@ -7,26 +8,12 @@ import { Link } from 'react-router-dom';
  * @param {Object} props - Component props
  * @param {React.ReactNode} props.children - Child components to render inside the layout
  * @param {string} props.title - Page title (optional)
+ * @param {boolean} props.transparentHeader - Whether the header should be transparent (optional)
  */
-const Layout = ({ children, title }) => {
+const Layout = ({ children, title, transparentHeader = false }) => {
   return (
     <>
-      <nav className="navbar">
-        <div className="container">
-          <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-            <div className="logo">
-              <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <span className="logo-symbol">*</span> MindfulDay
-              </Link>
-            </div>
-            <div>
-              <Link to="/journal">
-                <button className="btn">My Journal</button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Header transparent={transparentHeader} />
 
       <main className="main-content">
         {title && (
@@ -44,6 +31,12 @@ const Layout = ({ children, title }) => {
       </footer>
     </>
   );
+};
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
+  title: PropTypes.string,
+  transparentHeader: PropTypes.bool
 };
 
 export default Layout;
