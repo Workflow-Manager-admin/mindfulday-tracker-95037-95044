@@ -24,7 +24,8 @@ const Dashboard = () => {
     : 0;
     
   // Check if user has recorded mood today
-  const hasMoodToday = reflections.some(r => r.date === today && r.type === 'mood');
+  const todaysMood = reflections.find(r => r.date === today && r.type === 'mood');
+  const hasMoodToday = !!todaysMood;
   
   // Check if user has done reflection today
   const hasReflectionToday = reflections.some(r => r.date === today && r.type === 'daily-reflection');

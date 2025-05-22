@@ -138,6 +138,55 @@ export const AppProvider = ({ children }) => {
       )
     );
   };
+  
+  // Get mood reflection for a specific date
+  const getMoodForDate = (date) => {
+    const dateString = typeof date === 'string' ? date : date.toISOString().split('T')[0];
+    return reflections.find(r => r.date === dateString && r.type === 'mood');
+  };
+  
+  // Get mood history for the past n days
+  const getMoodHistory = (days = 7) => {
+    const result = [];
+    const today = new Date();
+    
+    for (let i = days - 1; i >= 0; i--) {
+      const date = new Date(today);
+      date.setDate(date.getDate() - i);
+      const dateString = date.toISOString().split('T')[0];
+      
+      const moodReflection = getMoodForDate(dateString);
+      result.push({
+        date: dateString,
+        mood: moodReflection?.mood || null,
+        reflectionId: moodReflection?.id || null
+      });
+    }
+    
+    return result;
+  };
+  
+  // Add or update mood for today
+  const setMoodForToday = (mood) => {
+    const today = new Date().toISOString().split('T')[0];
+    const existingMood = getMoodForDate(today);
+    
+    if (existingMood) {
+      updateReflection(existingMood.id, { 
+        mood, 
+        updatedAt: new Date().toISOString() 
+      });
+      return existingMood.id;
+    } else {
+      const newReflection = addReflection({
+        type: 'mood',
+        mood,
+        date: today,
+        notes: ''
+      });
+      return newReflection.id;
+    }
+  };
 
   // Settings functions
   const updateSettings = (newSettings) => {
@@ -161,6 +210,9 @@ export const AppProvider = ({ children }) => {
     reflections,
     addReflection,
     updateReflection,
+    getMoodForDate,
+    getMoodHistory,
+    setMoodForToday,
     
     // Settings data and methods
     userSettings,
