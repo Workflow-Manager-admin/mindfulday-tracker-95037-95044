@@ -69,6 +69,56 @@ export const AppProvider = ({ children }) => {
   const deleteTask = (taskId) => {
     setTasks(prevTasks => prevTasks.filter(task => task.id !== taskId));
   };
+  
+  // Get tasks filtered by various criteria
+  const getFilteredTasks = (filters = {}) => {
+    return tasks.filter(task => {
+      // Filter by date if specified
+      if (filters.date && task.date !== filters.date) {
+        return false;
+      }
+      
+      // Filter by completion status if specified
+      if (filters.completed !== undefined && task.completed !== filters.completed) {
+        return false;
+      }
+      
+      // Filter by priority if specified
+      if (filters.priority && task.priority !== filters.priority) {
+        return false;
+      }
+      
+      return true;
+    });
+  };
+  
+  // Sort tasks by priority (high to low)
+  const sortTasksByPriority = (tasksToSort) => {
+    const priorityOrder = {
+      [PRIORITY.HIGH]: 1,
+      [PRIORITY.MEDIUM]: 2,
+      [PRIORITY.LOW]: 3,
+      [PRIORITY.NONE]: 4
+    };
+    
+    return [...tasksToSort].sort((a, b) => {
+      // First sort by priority
+      const priorityComparison = priorityOrder[a.priority || PRIORITY.NONE] - 
+                                priorityOrder[b.priority || PRIORITY.NONE];
+      
+      if (priorityComparison !== 0) {
+        return priorityComparison;
+      }
+      
+      // Then by completion status (incomplete first)
+      if (a.completed !== b.completed) {
+        return a.completed ? 1 : -1;
+      }
+      
+      // Then by creation date (newest first)
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    });
+  };
 
   // Reflection-related functions
   const addReflection = (reflection) => {
@@ -104,6 +154,8 @@ export const AppProvider = ({ children }) => {
     addTask,
     updateTask,
     deleteTask,
+    getFilteredTasks,
+    sortTasksByPriority,
     
     // Reflection data and methods
     reflections,
